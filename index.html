@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <title>For Agarbatiiii 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffd1e8 0%, #ffe5f0 50%, #fff0f6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .container {
+            background: white;
+            border-radius: 25px;
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.2);
+            animation: slideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            margin-bottom: 12px;
+            animation: fadeInScale 0.8s ease-out;
+            letter-spacing: 1px;
+            word-break: break-word;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .heart-emoji {
+            font-size: 45px;
+            display: block;
+            margin: 12px 0;
+            animation: gentlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(1.15);
+                opacity: 0.9;
+            }
+        }
+
+        .message {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.7;
+            margin: 20px 0;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .sub-message {
+            font-size: 14px;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-style: italic;
+            letter-spacing: 0.3px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex: 1;
+            min-width: 130px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+        }
+
+        .btn-yes:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #ffc0d9 0%, #ffb3d9 100%);
+            color: #ff1493;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .btn-no:hover {
+            background: linear-gradient(135deg, #ffb3d9 0%, #ffa6d9 100%);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInBackdrop 0.4s ease;
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeInBackdrop {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-content {
+            background: white;
+            padding: 40px 25px;
+            border-radius: 25px;
+            text-align: center;
+            width: 100%;
+            max-width: 90%;
+            animation: popupSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 70px rgba(255, 105, 180, 0.3);
+            my-auto: center;
+        }
+
+        @keyframes popupSlide {
+            from {
+                opacity: 0;
+                transform: scale(0.7) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .popup-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #ff1493;
+            margin-bottom: 12px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .popup-emoji {
+            font-size: 50px;
+            margin: 15px 0;
+            animation: popupEmoji 0.6s ease-out;
+        }
+
+        @keyframes popupEmoji {
+            from {
+                transform: scale(0) rotate(-30deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0);
+                opacity: 1;
+            }
+        }
+
+        .popup-text {
+            font-size: 15px;
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .popup-buttons button {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-btn-yes {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+        }
+
+        .popup-btn-no {
+            background: linear-gradient(135deg, #ffd1e8 0%, #ffb3d9 100%);
+            color: #ff1493;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        }
+
+        .popup-btn-yes:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .popup-btn-no:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.2);
+        }
+
+        /* Falling Hearts */
+        .falling-heart {
+            position: fixed;
+            font-size: 35px;
+            pointer-events: none;
+            animation: fall 3.5s ease-in forwards;
+            z-index: 500;
+            filter: drop-shadow(0 5px 10px rgba(255, 105, 180, 0.3));
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotateZ(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Final Message Screen */
+        .final-screen {
+            display: none;
+            padding: 30px 15px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .final-emoji {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: floatUp 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes floatUp {
+            0%, 100% { 
+                transform: translateY(0px);
+            }
+            50% { 
+                transform: translateY(-20px);
+            }
+        }
+
+        .final-message {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.8;
+            margin: 25px 0;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            font-style: italic;
+        }
+
+        .final-message-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .final-message-title.sad {
+            background: linear-gradient(135deg, #ff69b4 0%, #d63384 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .heartbreak-start {
+            font-size: 20px;
+            color: #ff1493;
+            font-weight: 700;
+            margin: 15px 0;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .heartwarming-message {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.8;
+            margin: 20px 0;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .signature {
+            margin-top: 25px;
+            font-size: 14px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .decorative-line {
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 30px 18px;
+                border-radius: 20px;
+                min-height: auto;
+            }
+
+            .name {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .heart-emoji {
+                font-size: 40px;
+                margin: 10px 0;
+            }
+
+            .message {
+                font-size: 14px;
+                margin: 15px 0;
+            }
+
+            .sub-message {
+                font-size: 13px;
+                margin-bottom: 25px;
+            }
+
+            .button-container {
+                margin-top: 25px;
+                gap: 12px;
+            }
+
+            .btn {
+                padding: 14px 20px;
+                font-size: 13px;
+                min-height: 48px;
+                letter-spacing: 0.6px;
+                min-width: 110px;
+            }
+
+            .popup-content {
+                padding: 35px 20px;
+                border-radius: 20px;
+            }
+
+            .popup-title {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .popup-emoji {
+                font-size: 45px;
+                margin: 12px 0;
+            }
+
+            .popup-text {
+                font-size: 14px;
+                margin: 12px 0;
+            }
+
+            .popup-buttons button {
+                font-size: 13px;
+                padding: 12px 18px;
+                min-height: 46px;
+                min-width: 110px;
+            }
+
+            .final-emoji {
+                font-size: 55px;
+                margin: 15px 0;
+            }
+
+            .final-message-title {
+                font-size: 22px;
+                margin-bottom: 12px;
+            }
+
+            .final-message {
+                font-size: 14px;
+                margin: 20px 0;
+            }
+
+            .heartbreak-start {
+                font-size: 18px;
+                margin: 12px 0;
+            }
+
+            .heartwarming-message {
+                font-size: 13px;
+                margin: 18px 0;
+            }
+
+            .signature {
+                font-size: 13px;
+                margin-top: 20px;
+            }
+
+            .decorative-line {
+                width: 45px;
+                margin: 12px auto;
+            }
+
+            .falling-heart {
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+
+            .container {
+                padding: 25px 16px;
+                border-radius: 18px;
+            }
+
+            .name {
+                font-size: 22px;
+                margin-bottom: 8px;
+            }
+
+            .heart-emoji {
+                font-size: 35px;
+                margin: 8px 0;
+            }
+
+            .header {
+                margin-bottom: 20px;
+            }
+
+            .message {
+                font-size: 13px;
+                line-height: 1.6;
+                margin: 12px 0;
+            }
+
+            .sub-message {
+                font-size: 12px;
+                margin-bottom: 20px;
+            }
+
+            .button-container {
+                margin-top: 20px;
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 12px 16px;
+                font-size: 12px;
+                min-height: 46px;
+                letter-spacing: 0.5px;
+                min-width: 100px;
+                flex: 1;
+            }
+
+            .popup {
+                padding: 15px;
+            }
+
+            .popup-content {
+                padding: 30px 18px;
+                border-radius: 18px;
+                max-width: 95%;
+            }
+
+            .popup-title {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .popup-emoji {
+                font-size: 40px;
+                margin: 10px 0;
+            }
+
+            .popup-text {
+                font-size: 13px;
+                margin: 10px 0;
+            }
+
+            .popup-buttons {
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .popup-buttons button {
+                font-size: 12px;
+                padding: 11px 14px;
+                min-height: 44px;
+                letter-spacing: 0.4px;
+                min-width: 95px;
+            }
+
+            .final-screen {
+                padding: 25px 12px;
+            }
+
+            .final-emoji {
+                font-size: 50px;
+                margin: 12px 0;
+            }
+
+            .final-message-title {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .final-message {
+                font-size: 13px;
+                line-height: 1.7;
+                margin: 15px 0;
+            }
+
+            .heartbreak-start {
+                font-size: 16px;
+                margin: 10px 0;
+            }
+
+            .heartwarming-message {
+                font-size: 12px;
+                line-height: 1.7;
+                margin: 15px 0;
+            }
+
+            .signature {
+                font-size: 12px;
+                margin-top: 15px;
+            }
+
+            .decorative-line {
+                width: 40px;
+                margin: 10px auto;
+            }
+
+            .falling-heart {
+                font-size: 28px;
+            }
+        }
+
+        /* iPhone notch support */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(8px, env(safe-area-inset-left));
+                padding-right: max(8px, env(safe-area-inset-right));
+                padding-top: max(8px, env(safe-area-inset-top));
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="mainContent">
+            <div class="header">
+                <div class="name">✨ Aaruuuu ✨</div>
+                <span class="heart-emoji">💗</span>
+            </div>
+
+            <div class="message">
+                I'm deeply sorry for hurting you. I realize the pain I caused and I regret every moment that made you sad. You mean the world to me, and I want to make things right.
+            </div>
+
+            <div class="sub-message">
+                Will you forgive me and stay with me forever? 🌹
+            </div>
+
+            <div class="button-container">
+                <button class="btn btn-yes" id="yesBtn">Yes, Forever 💕</button>
+                <button class="btn btn-no" id="noBtn">No 🥺</button>
+            </div>
+        </div>
+
+        <!-- YES Path - Final Screen -->
+        <div id="finalScreenYes" class="final-screen">
+            <div class="final-message-title">You Just Made Me The Happiest! 🎉</div>
+            <div class="decorative-line"></div>
+            
+            <span class="final-emoji">💕</span>
+            
+            <div class="final-message">
+                My heart is complete with you. These past 3 months have been filled with the most beautiful memories. Every single moment with you is precious to me. You will be forever in my mind, in my heart, every second, every minute, every hour of my life. 💫
+            </div>
+
+            <div class="decorative-line"></div>
+            
+            <div class="signature">
+                Forever Yours Kaluu Yogyaa 💕 I Love You 🥰✨
+            </div>
+        </div>
+
+        <!-- NO Path - Final Screen (Heartbreak) -->
+        <div id="finalScreenNo" class="final-screen">
+            <div class="heartbreak-start">Please Please Stay with me Agarbatiiii 🥺💔</div>
+            
+            <span class="final-emoji">💔</span>
+            
+            <div class="heartwarming-message">
+                I know I hurt you deeply, and that's the biggest regret of my life. Every second without you feels empty and meaningless. These 3 months with you have been the most beautiful time of my existence. Your smile, your laughter, your presence... they mean everything to me.
+            </div>
+
+            <div class="heartwarming-message">
+                I promise to be better. I promise to cherish you, to protect your heart the way you deserve. Please, don't give up on us. Give me one more chance to prove how much you mean to me. 
+            </div>
+
+            <div class="heartwarming-message">
+                <strong>Please forgive me... Please come back to me. 🙏💕</strong>
+            </div>
+
+            <div class="decorative-line"></div>
+            
+            <div class="signature">
+                I'm Sorry 💔 Forever yours yogyaa ✨ Never Letting You Go 🥰
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-title">Wait! 🥺</div>
+            <div class="popup-emoji">💔✨</div>
+            <p class="popup-text">
+                Do you really want to go? 😢
+            </p>
+            <div class="popup-buttons">
+                <button class="popup-btn-no" id="popupStay">No, Stay! 💕</button>
+                <button class="popup-btn-yes" id="popupLeave">Yes, Leave 🥺</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const popup = document.getElementById('popup');
+        const popupStay = document.getElementById('popupStay');
+        const popupLeave = document.getElementById('popupLeave');
+        const mainContent = document.getElementById('mainContent');
+        const finalScreenYes = document.getElementById('finalScreenYes');
+        const finalScreenNo = document.getElementById('finalScreenNo');
+
+        let attempts = 0;
+        let popupShown = false;
+        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        // Yes Button - Show Final Message (Happy Path)
+        yesBtn.addEventListener('click', function() {
+            mainContent.style.display = 'none';
+            finalScreenYes.style.display = 'block';
+            
+            // Send notification
+            sendNotification('clicked_yes');
+        });
+
+        // No Button - Dodge on hover and click
+        noBtn.addEventListener('mouseenter', function() {
+            if (!popupShown && !isMobile) {
+                dodgeButton();
+            }
+        });
+
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!popupShown) {
+                dodgeButton();
+            }
+        });
+
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!popupShown) {
+                dodgeButton();
+            }
+        });
+
+        function dodgeButton() {
+            attempts++;
+
+            // Calculate safe position within viewport
+            const container = document.querySelector('.container');
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            const containerRect = container.getBoundingClientRect();
+            
+            const minX = Math.max(10, containerRect.left + 10);
+            const maxX = Math.min(window.innerWidth - btnWidth - 10, containerRect.right - 10);
+            const minY = Math.max(10, containerRect.top - 50);
+            const maxY = Math.min(window.innerHeight - btnHeight - 10, containerRect.bottom + 50);
+            
+            const randomX = Math.random() * (maxX - minX) + minX;
+            const randomY = Math.random() * (maxY - minY) + minY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.zIndex = '100';
+
+            // Show popup after 8 attempts
+            if (attempts >= 8) {
+                popupShown = true;
+                setTimeout(function() {
+                    popup.style.display = 'flex';
+                }, 500);
+            }
+        }
+
+        popupStay.addEventListener('click', function() {
+            closePopup();
+        });
+
+        popupLeave.addEventListener('click', function() {
+            showHeartRainNo();
+        });
+
+        function closePopup() {
+            popup.style.display = 'none';
+            popupShown = false;
+            attempts = 0;
+            noBtn.style.position = 'relative';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+            noBtn.style.zIndex = 'auto';
+        }
+
+        function showHeartRainNo() {
+            popup.style.display = 'none';
+            mainContent.style.display = 'none';
+
+            // Show falling hearts for 3 seconds
+            createHeartRain();
+
+            setTimeout(function() {
+                finalScreenNo.style.display = 'block';
+                sendNotification('clicked_no');
+            }, 3000);
+        }
+
+        function createHeartRain() {
+            const hearts = ['💗', '💔', '✨', '🌹', '💕', '🥺', '💫'];
+            const heartCount = isMobile ? 15 : 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                setTimeout(function() {
+                    const heart = document.createElement('div');
+                    heart.className = 'falling-heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.fontSize = (Math.random() * 25 + 20) + 'px';
+                    document.body.appendChild(heart);
+
+                    setTimeout(function() {
+                        heart.remove();
+                    }, 3500);
+                }, i * 150);
+            }
+        }
+
+        function sendNotification(action) {
+            // This will be handled server-side to send Telegram/Email notifications
+            try {
+                fetch('/api/notify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: action,
+                        timestamp: new Date(),
+                        userAgent: navigator.userAgent
+                    })
+                }).catch(err => console.log('Notification sent'));
+            } catch (e) {
+                console.log('Notification service unavailable');
+            }
+        }
+
+        // Prevent zoom on iOS
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent double tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
