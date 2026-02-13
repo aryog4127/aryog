@@ -805,23 +805,28 @@
         function dodgeButton() {
             attempts++;
 
-            // Calculate safe position within viewport
-            const container = document.querySelector('.container');
+            // Get button dimensions
             const btnWidth = noBtn.offsetWidth;
             const btnHeight = noBtn.offsetHeight;
-            const containerRect = container.getBoundingClientRect();
             
-            const minX = Math.max(10, containerRect.left + 10);
-            const maxX = Math.min(window.innerWidth - btnWidth - 10, containerRect.right - 10);
-            const minY = Math.max(10, containerRect.top - 50);
-            const maxY = Math.min(window.innerHeight - btnHeight - 10, containerRect.bottom + 50);
+            // Get viewport dimensions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
             
-            const randomX = Math.random() * (maxX - minX) + minX;
-            const randomY = Math.random() * (maxY - minY) + minY;
+            // Define safe boundaries with padding
+            const padding = 20;
+            const minX = padding;
+            const maxX = viewportWidth - btnWidth - padding;
+            const minY = padding;
+            const maxY = viewportHeight - btnHeight - padding;
+            
+            // Ensure max is greater than min
+            const safeX = maxX > minX ? Math.random() * (maxX - minX) + minX : viewportWidth / 2 - btnWidth / 2;
+            const safeY = maxY > minY ? Math.random() * (maxY - minY) + minY : viewportHeight / 2 - btnHeight / 2;
             
             noBtn.style.position = 'fixed';
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
+            noBtn.style.left = Math.max(padding, Math.min(safeX, viewportWidth - btnWidth - padding)) + 'px';
+            noBtn.style.top = Math.max(padding, Math.min(safeY, viewportHeight - btnHeight - padding)) + 'px';
             noBtn.style.zIndex = '100';
 
             // Show popup after 8 attempts
