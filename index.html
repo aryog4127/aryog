@@ -129,7 +129,6 @@
             margin-top: 30px;
             position: relative;
             flex-wrap: wrap;
-            min-height: 70px;
         }
 
         .btn {
@@ -139,7 +138,7 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-transform: uppercase;
             letter-spacing: 0.8px;
             font-family: 'Poppins', sans-serif;
@@ -156,8 +155,6 @@
         .btn-yes {
             background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
             color: white;
-            position: relative;
-            z-index: 10;
         }
 
         .btn-yes:hover {
@@ -172,20 +169,13 @@
         .btn-no {
             background: linear-gradient(135deg, #ffc0d9 0%, #ffb3d9 100%);
             color: #ff1493;
+            position: relative;
             font-weight: 600;
-            z-index: 5;
         }
 
         .btn-no:hover {
             background: linear-gradient(135deg, #ffb3d9 0%, #ffa6d9 100%);
             box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
-        }
-
-        /* When button is dodging */
-        .btn-no.dodging {
-            position: absolute !important;
-            flex: none;
-            margin: 0;
         }
 
         .popup {
@@ -219,6 +209,7 @@
             max-width: 90%;
             animation: popupSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 25px 70px rgba(255, 105, 180, 0.3);
+            my-auto: center;
         }
 
         @keyframes popupSlide {
@@ -464,7 +455,6 @@
             .button-container {
                 margin-top: 25px;
                 gap: 12px;
-                min-height: 60px;
             }
 
             .btn {
@@ -580,7 +570,6 @@
             .button-container {
                 margin-top: 20px;
                 gap: 10px;
-                min-height: 55px;
             }
 
             .btn {
@@ -723,7 +712,7 @@
             <div class="decorative-line"></div>
             
             <div class="signature">
-                Forever Yours Yogyaa 💕✨
+                Forever Yours Kaluu Yogyaa 💕 I Love You 🥰✨
             </div>
         </div>
 
@@ -748,7 +737,7 @@
             <div class="decorative-line"></div>
             
             <div class="signature">
-                I'm Sorry 💔 Forever yours yogyaa ✨ Never Letting You Go 🥰
+                I'm Sorry 💔 Forever yours yogyaa 🥰
             </div>
         </div>
     </div>
@@ -777,11 +766,10 @@
         const mainContent = document.getElementById('mainContent');
         const finalScreenYes = document.getElementById('finalScreenYes');
         const finalScreenNo = document.getElementById('finalScreenNo');
-        const buttonContainer = document.querySelector('.button-container');
+        const container = document.querySelector('.container');
 
         let attempts = 0;
         let popupShown = false;
-        let isDodging = false;
         let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
         // Yes Button - Show Final Message (Happy Path)
@@ -795,7 +783,7 @@
 
         // No Button - Dodge on hover and click
         noBtn.addEventListener('mouseenter', function() {
-            if (!popupShown && !isMobile && !isDodging) {
+            if (!popupShown && !isMobile) {
                 dodgeButton();
             }
         });
@@ -803,7 +791,7 @@
         noBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            if (!popupShown && !isDodging) {
+            if (!popupShown) {
                 dodgeButton();
             }
         });
@@ -811,84 +799,51 @@
         noBtn.addEventListener('touchstart', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            if (!popupShown && !isDodging) {
+            if (!popupShown) {
                 dodgeButton();
             }
         });
 
         function dodgeButton() {
-            isDodging = true;
             attempts++;
 
-            // Enable absolute positioning for dodging
-            if (!noBtn.classList.contains('dodging')) {
-                noBtn.classList.add('dodging');
+            // Hide Yes button on first dodge
+            if (attempts === 1) {
+                yesBtn.style.display = 'none';
             }
 
-            // Get container boundaries
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
-            const containerPadding = 20;
-            const buttonWidth = noBtn.offsetWidth;
-            const buttonHeight = noBtn.offsetHeight;
-
-            // Safe zone within container (relative to container)
-            const minX = containerPadding;
-            const maxX = container.offsetWidth - buttonWidth - containerPadding;
-            const minY = containerPadding;
-            const maxY = container.offsetHeight - buttonHeight - containerPadding;
-
-            let randomX, randomY;
-            let collision = true;
-            let dodgeAttempts = 0;
-
-            // Generate random position that doesn't overlap with Yes button
-            while (collision && dodgeAttempts < 10) {
-                randomX = Math.random() * (maxX - minX) + minX;
-                randomY = Math.random() * (maxY - minY) + minY;
-
-                // Check if new position overlaps with Yes button
-                const noButtonPotentialRect = {
-                    left: randomX,
-                    right: randomX + buttonWidth,
-                    top: randomY,
-                    bottom: randomY + buttonHeight
-                };
-
-                // Get Yes button position relative to container
-                const yesBtnRelativeLeft = yesBtn.offsetLeft;
-                const yesBtnRelativeRight = yesBtnRelativeLeft + yesBtn.offsetWidth;
-                const yesBtnRelativeTop = yesBtn.offsetTop;
-                const yesBtnRelativeBottom = yesBtnRelativeTop + yesBtn.offsetHeight;
-
-                // Check for collision with buffer zone
-                const bufferZone = 15;
-                collision = !(noButtonPotentialRect.right + bufferZone < yesBtnRelativeLeft ||
-                            noButtonPotentialRect.left - bufferZone > yesBtnRelativeRight ||
-                            noButtonPotentialRect.bottom + bufferZone < yesBtnRelativeTop ||
-                            noButtonPotentialRect.top - bufferZone > yesBtnRelativeBottom);
-
-                dodgeAttempts++;
-            }
-
-            // Ensure button stays within bounds
-            randomX = Math.max(minX, Math.min(randomX, maxX));
-            randomY = Math.max(minY, Math.min(randomY, maxY));
-
-            // Apply position relative to container
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            
+            // Container dimensions
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            
+            // Safe bounds within container (with 10px padding)
+            const minX = 10;
+            const maxX = containerWidth - btnWidth - 10;
+            const minY = 10;
+            const maxY = containerHeight - btnHeight - 10;
+            
+            // Ensure bounds are valid
+            const validMaxX = maxX > minX ? maxX : minX + 50;
+            const validMaxY = maxY > minY ? maxY : minY + 50;
+            
+            const randomX = Math.random() * (validMaxX - minX) + minX;
+            const randomY = Math.random() * (validMaxY - minY) + minY;
+            
+            // Position button absolutely within container
+            noBtn.style.position = 'absolute';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
-
-            setTimeout(() => {
-                isDodging = false;
-            }, 200);
+            noBtn.style.zIndex = '100';
 
             // Show popup after 8 attempts
             if (attempts >= 8) {
                 popupShown = true;
                 setTimeout(function() {
                     popup.style.display = 'flex';
-                }, 300);
+                }, 500);
             }
         }
 
@@ -905,11 +860,12 @@
             popupShown = false;
             attempts = 0;
             
-            // Reset button to relative positioning
-            noBtn.classList.remove('dodging');
-            noBtn.style.position = '';
-            noBtn.style.left = '';
-            noBtn.style.top = '';
+            // Reset button styles and show Yes button again
+            yesBtn.style.display = 'flex';
+            noBtn.style.position = 'relative';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+            noBtn.style.zIndex = 'auto';
         }
 
         function showHeartRainNo() {
