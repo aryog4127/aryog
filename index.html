@@ -171,6 +171,7 @@
             color: #ff1493;
             position: relative;
             font-weight: 600;
+            transition: left 0.2s ease-out;
         }
 
         .btn-no:hover {
@@ -737,7 +738,7 @@
             <div class="decorative-line"></div>
             
             <div class="signature">
-                I'm Sorry 💔 Forever yours yogyaa ✨🥰
+                I'm Sorry 💔 Forever yours yogyaa ✨ Never Letting You Go 🥰
             </div>
         </div>
     </div>
@@ -771,6 +772,7 @@
         let attempts = 0;
         let popupShown = false;
         let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        let originalLeftPosition = 0;
 
         // Yes Button - Show Final Message (Happy Path)
         yesBtn.addEventListener('click', function() {
@@ -810,40 +812,18 @@
             // Hide Yes button on first dodge
             if (attempts === 1) {
                 yesBtn.style.display = 'none';
+                // Store the original position on first dodge
+                originalLeftPosition = noBtn.offsetLeft;
+                // Make button position absolute for smooth dodging
+                noBtn.style.position = 'relative';
             }
 
-            const btnWidth = noBtn.offsetWidth;
-            const btnHeight = noBtn.offsetHeight;
+            // Dodge only left and right within 50px range
+            // Random offset between -50px and +50px
+            const randomOffset = (Math.random() * 100 - 50); // -50 to +50
+            const newLeft = randomOffset;
             
-            // Container dimensions
-            const containerWidth = container.offsetWidth;
-            const containerHeight = container.offsetHeight;
-            
-            // Define safe area - keep button within middle 70% of container height and full width
-            const topMargin = containerHeight * 0.15; // 15% from top
-            const bottomMargin = containerHeight * 0.15; // 15% from bottom
-            
-            // Safe bounds within container (with 10px padding)
-            const minX = 10;
-            const maxX = containerWidth - btnWidth - 10;
-            const minY = topMargin;
-            const maxY = containerHeight - btnHeight - bottomMargin;
-            
-            // Ensure bounds are valid
-            const validMaxX = maxX > minX ? maxX : minX + 50;
-            const validMaxY = maxY > minY ? maxY : minY + 50;
-            
-            const randomX = Math.random() * (validMaxX - minX) + minX;
-            const randomY = Math.random() * (validMaxY - minY) + minY;
-            
-            // Position button absolutely within container
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
-            noBtn.style.zIndex = '100';
-
-            console.log(`Button positioned at X: ${randomX}, Y: ${randomY}`);
-            console.log(`Safe area - minY: ${minY}, maxY: ${validMaxY}`);
+            noBtn.style.left = newLeft + 'px';
 
             // Show popup after 8 attempts
             if (attempts >= 8) {
@@ -870,9 +850,7 @@
             // Reset button styles and show Yes button again
             yesBtn.style.display = 'flex';
             noBtn.style.position = 'relative';
-            noBtn.style.left = 'auto';
-            noBtn.style.top = 'auto';
-            noBtn.style.zIndex = 'auto';
+            noBtn.style.left = '0px';
         }
 
         function showHeartRainNo() {
