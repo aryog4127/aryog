@@ -737,7 +737,7 @@
             <div class="decorative-line"></div>
             
             <div class="signature">
-                I'm Sorry 💔 Forever yours yogyaa 🥰
+                I'm Sorry 💔 Forever yours yogyaa ✨🥰
             </div>
         </div>
     </div>
@@ -819,11 +819,15 @@
             const containerWidth = container.offsetWidth;
             const containerHeight = container.offsetHeight;
             
+            // Define safe area - keep button within middle 70% of container height and full width
+            const topMargin = containerHeight * 0.15; // 15% from top
+            const bottomMargin = containerHeight * 0.15; // 15% from bottom
+            
             // Safe bounds within container (with 10px padding)
             const minX = 10;
             const maxX = containerWidth - btnWidth - 10;
-            const minY = 10;
-            const maxY = containerHeight - btnHeight - 10;
+            const minY = topMargin;
+            const maxY = containerHeight - btnHeight - bottomMargin;
             
             // Ensure bounds are valid
             const validMaxX = maxX > minX ? maxX : minX + 50;
@@ -837,6 +841,9 @@
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
             noBtn.style.zIndex = '100';
+
+            console.log(`Button positioned at X: ${randomX}, Y: ${randomY}`);
+            console.log(`Safe area - minY: ${minY}, maxY: ${validMaxY}`);
 
             // Show popup after 8 attempts
             if (attempts >= 8) {
