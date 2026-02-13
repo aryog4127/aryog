@@ -129,27 +129,27 @@
             margin-top: 30px;
             position: relative;
             flex-wrap: wrap;
+            min-height: 80px;
         }
 
         .btn {
-            padding: 16px 30px;
+            padding: 12px 20px;
             border: none;
             border-radius: 50px;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
             font-family: 'Poppins', sans-serif;
             box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-            min-height: 50px;
+            min-height: 46px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            flex: 1;
-            min-width: 130px;
+            width: 120px;
         }
 
         .btn-yes {
@@ -170,13 +170,27 @@
             background: linear-gradient(135deg, #ffc0d9 0%, #ffb3d9 100%);
             color: #ff1493;
             position: relative;
-            font-weight: 600;
-            transition: left 0.2s ease-out;
         }
 
         .btn-no:hover {
             background: linear-gradient(135deg, #ffb3d9 0%, #ffa6d9 100%);
             box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+        }
+
+        .btn-no.dodging {
+            animation: buttonBounce 0.35s ease-out;
+        }
+
+        @keyframes buttonBounce {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.12) rotate(-8deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .popup {
@@ -456,14 +470,15 @@
             .button-container {
                 margin-top: 25px;
                 gap: 12px;
+                min-height: 100px;
             }
 
             .btn {
-                padding: 14px 20px;
-                font-size: 13px;
-                min-height: 48px;
-                letter-spacing: 0.6px;
-                min-width: 110px;
+                padding: 11px 18px;
+                font-size: 12px;
+                min-height: 44px;
+                letter-spacing: 0.5px;
+                width: 110px;
             }
 
             .popup-content {
@@ -571,15 +586,15 @@
             .button-container {
                 margin-top: 20px;
                 gap: 10px;
+                min-height: 120px;
             }
 
             .btn {
-                padding: 12px 16px;
-                font-size: 12px;
-                min-height: 46px;
-                letter-spacing: 0.5px;
-                min-width: 100px;
-                flex: 1;
+                padding: 10px 14px;
+                font-size: 11px;
+                min-height: 42px;
+                letter-spacing: 0.4px;
+                width: 95px;
             }
 
             .popup {
@@ -713,7 +728,7 @@
             <div class="decorative-line"></div>
             
             <div class="signature">
-                Forever Yours Kaluu Yogyaa 💕 I Love You 🥰✨
+                Forever Yours Yogyaa 💕 I Love You 🥰✨
             </div>
         </div>
 
@@ -738,7 +753,7 @@
             <div class="decorative-line"></div>
             
             <div class="signature">
-                I'm Sorry 💔 Forever yours yogyaa ✨ Never Letting You Go 🥰
+                I'm Sorry 💔 Forever yours yogyaa ✨🥰
             </div>
         </div>
     </div>
@@ -767,25 +782,23 @@
         const mainContent = document.getElementById('mainContent');
         const finalScreenYes = document.getElementById('finalScreenYes');
         const finalScreenNo = document.getElementById('finalScreenNo');
-        const container = document.querySelector('.container');
+        const buttonContainer = document.querySelector('.button-container');
 
         let attempts = 0;
         let popupShown = false;
         let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        let originalLeftPosition = 0;
+        let isDodging = false;
 
         // Yes Button - Show Final Message (Happy Path)
         yesBtn.addEventListener('click', function() {
             mainContent.style.display = 'none';
             finalScreenYes.style.display = 'block';
-            
-            // Send notification
             sendNotification('clicked_yes');
         });
 
         // No Button - Dodge on hover and click
         noBtn.addEventListener('mouseenter', function() {
-            if (!popupShown && !isMobile) {
+            if (!popupShown && !isMobile && !isDodging) {
                 dodgeButton();
             }
         });
@@ -793,7 +806,7 @@
         noBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            if (!popupShown) {
+            if (!popupShown && !isDodging) {
                 dodgeButton();
             }
         });
@@ -801,37 +814,71 @@
         noBtn.addEventListener('touchstart', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            if (!popupShown) {
+            if (!popupShown && !isDodging) {
                 dodgeButton();
             }
         });
 
         function dodgeButton() {
+            if (isDodging) return;
+            isDodging = true;
+
             attempts++;
 
             // Hide Yes button on first dodge
             if (attempts === 1) {
-                yesBtn.style.display = 'none';
-                // Store the original position on first dodge
-                originalLeftPosition = noBtn.offsetLeft;
-                // Make button position absolute for smooth dodging
-                noBtn.style.position = 'relative';
+                yesBtn.style.visibility = 'hidden';
+                noBtn.style.position = 'absolute';
             }
 
-            // Dodge only left and right within 50px range
-            // Random offset between -50px and +50px
-            const randomOffset = (Math.random() * 100 - 50); // -50 to +50
-            const newLeft = randomOffset;
+            // Add bounce animation
+            noBtn.classList.remove('dodging');
+            void noBtn.offsetWidth; // Trigger reflow
+            noBtn.classList.add('dodging');
+
+            // Get container bounds
+            const containerRect = buttonContainer.getBoundingClientRect();
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
             
-            noBtn.style.left = newLeft + 'px';
+            // Random position in all directions within the container
+            const randomX = Math.random() * (containerRect.width - btnWidth);
+            const randomY = Math.random() * (containerRect.height - btnHeight);
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+
+            // Change button appearance as attempts increase
+            if (attempts >= 3) {
+                noBtn.style.background = `linear-gradient(135deg, ${getColorByAttempt(attempts)} 0%, #ff8ba6 100%)`;
+            }
 
             // Show popup after 8 attempts
             if (attempts >= 8) {
                 popupShown = true;
                 setTimeout(function() {
                     popup.style.display = 'flex';
-                }, 500);
+                }, 300);
             }
+
+            // Reset dodging flag after animation completes
+            setTimeout(() => {
+                isDodging = false;
+            }, 350);
+        }
+
+        function getColorByAttempt(attemptNum) {
+            const colors = [
+                '#ffc0d9', // 1
+                '#ffb3d9', // 2
+                '#ffa6d9', // 3
+                '#ff99d9', // 4
+                '#ff89d2', // 5
+                '#ff79ca', // 6
+                '#ff6bb8', // 7
+                '#ff5a92'  // 8
+            ];
+            return colors[Math.min(attemptNum - 1, colors.length - 1)];
         }
 
         popupStay.addEventListener('click', function() {
@@ -846,11 +893,15 @@
             popup.style.display = 'none';
             popupShown = false;
             attempts = 0;
+            isDodging = false;
             
             // Reset button styles and show Yes button again
-            yesBtn.style.display = 'flex';
+            yesBtn.style.visibility = 'visible';
             noBtn.style.position = 'relative';
             noBtn.style.left = '0px';
+            noBtn.style.top = '0px';
+            noBtn.style.background = 'linear-gradient(135deg, #ffc0d9 0%, #ffb3d9 100%)';
+            noBtn.classList.remove('dodging');
         }
 
         function showHeartRainNo() {
@@ -887,7 +938,6 @@
         }
 
         function sendNotification(action) {
-            // This will be handled server-side to send Telegram/Email notifications
             try {
                 fetch('/api/notify', {
                     method: 'POST',
